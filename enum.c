@@ -239,6 +239,26 @@ void makeRoot()
   for (i = 1; i < n; i++) {
     printf("for startLines[%d]: %d\n", i, startLines[i]);
   }
+
+  for (i=1; i<=n; i++) {
+    printf("i = %d:\n", i);
+    currVertex = &upper[i];
+    while (currVertex->down != NULL) {
+      printf("line = %d:\n", currVertex->line);
+      currVertex = currVertex->down;
+    }
+    printf("line = %d:\n", currVertex->line);
+  }
+  for (i=1; i<=n; i++) {
+    printf("i = %d:\n", i);
+    currVertex = &lower[i];
+    while (currVertex->up != NULL) {
+      printf("line = %d:\n", currVertex->line);
+      currVertex = currVertex->up;
+    }
+    printf("line = %d:\n", currVertex->line);
+  }
+
 }
 
 
@@ -276,9 +296,30 @@ void findAllChildren(int cleanLevel)
 
   // Omit for efficiency @ 8th.Apr.2009.
   if (withPrint == 1) {
-    printf("%d-th amida, cleanLv = %d:\n",count,cleanLevel);
+    printf("cleanLv = %d:\n", cleanLevel);
+    printf("%d-th amida", count);
+    printf("cleanLv = %d:\n", cleanLevel);
     print();  // Count & Print
    }
+
+  for (i=1; i<=n; i++) {
+    printf("i = %d:\n", i);
+    currVertex = &upper[i]; 
+    while (currVertex->down != NULL) {
+      printf("line = %d:\n", currVertex->line);
+      currVertex = currVertex->down;
+    }
+    printf("line = %d:\n", currVertex->line);
+  }
+  for (i=1; i<=n; i++) {
+    printf("i = %d:\n", i);
+    currVertex = &lower[i]; 
+    while (currVertex->up != NULL) {
+      printf("line = %d:\n", currVertex->line);
+      currVertex = currVertex->up;
+    }
+    printf("line = %d:\n", currVertex->line);
+  }
 
   // Turn bar children
   for (i=n; i>=currCleanLevel-1; i--) {
@@ -309,22 +350,27 @@ void findAllChildren(int cleanLevel)
 
 
 
+    printf("1line: %d\n", currVertex->line);
     while (currVertex->line != i) {
-        
+      printf("2line: %d\n", currVertex->line);
       lowerleft = currVertex->down;  // Find lower-left vertex of current vertex
 
       if (lowerleft->right == NULL) {
+        printf("pre3line: %d\n", currVertex->line);
         currVertex = currVertex->right;
         currVertex = currVertex->down;
+        printf("3line: %d\n", currVertex->line);
         continue;    // increment & continue (skip recursive call)
 
       } else if ( isRightswappable(lowerleft, lowerleft->right) ) {
-
         if (i == cleanLevel-1) {
+          printf("4line: %d\n", currVertex->line);
 
-          if (lowerleft->line + 2 < activeBar->line )
+          if (lowerleft->line + 2 < activeBar->line ) {
+            printf("5line: %d\n", currVertex->line);
             ;  //break;
-          else{
+          } else {
+            printf("6line: %d\n", currVertex->line);
 
             route = currVertex->routeNum;
             b.left = lowerleft; b.right = lowerleft->right;
@@ -352,7 +398,8 @@ void findAllChildren(int cleanLevel)
           }
 
         } else {  // Case of i >= cleanLevel-1
-
+          printf("7line: %d\n", currVertex->line);
+          
           route = currVertex->routeNum;
           b.left = lowerleft; b.right = lowerleft->right;
           b.next = b.prev = NULL;
@@ -373,9 +420,11 @@ void findAllChildren(int cleanLevel)
         }
       }
 
+      printf("===================\n");
       // increment currVertex
       currVertex = currVertex->right;
       currVertex = currVertex->down;
+      printf("8line: %d\n", currVertex->line);
     }  // while
 
   } // for loop (biggest loop in this subroutine.)

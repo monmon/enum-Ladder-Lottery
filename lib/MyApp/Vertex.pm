@@ -14,10 +14,12 @@ sub new {
     my $class = shift;
     my $args = shift || {};
     bless {
-        up    => undef,
-        down  => undef,
-        left  => undef,
-        right => undef,
+        up        => undef,
+        down      => undef,
+        left      => undef,
+        right     => undef,
+        line      => 0,      # 左から数えて何番目のlineにいるか
+        route_num => 0,
         %{$args},
     }, $class;
 }

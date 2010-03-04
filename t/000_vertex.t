@@ -19,6 +19,13 @@ can_ok($vertex, 'right');
 can_ok($vertex, 'line');
 can_ok($vertex, 'route_num');
 
+is($vertex->up, undef, 'default');
+is($vertex->down, undef, 'default');
+is($vertex->left, undef, 'default');
+is($vertex->right, undef, 'default');
+is($vertex->line, 0, 'default');
+is($vertex->route_num, 0, 'default');
+
 $vertex->up($vertex);
 $vertex->up(1);
 #isa_ok($vertex->up, 'MyApp::Vertex', 'up');
